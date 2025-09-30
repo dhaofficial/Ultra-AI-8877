@@ -26,6 +26,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 job:
+
   test:
     name: Test Application
     runs-on: ubuntu-latest
