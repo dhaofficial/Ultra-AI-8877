@@ -1,0 +1,22 @@
+name: Autofix
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  autofix:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Check for lock file
+        run: |
+          if [ ! -f package-lock.json ]; then
+            echo "package-lock.json missing!"
+            exit 1
+          fi
+      - name: Lint
+        run: npm run lint || true
+      - name: Auto-fix
+        run: npm run lint -- --fix || true
